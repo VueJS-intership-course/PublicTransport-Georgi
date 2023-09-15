@@ -4,33 +4,6 @@ import Feature from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Style, Circle, Fill, Stroke } from 'ol/style';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-
-export function createMap(center, vectorLayer, mapLoadedCallback) {
-    const map = new Map({
-        target: 'map',
-        layers: [
-            new TileLayer({
-                source: new OSM(),
-            }),
-            vectorLayer,
-        ],
-        view: new View({
-            center,
-            zoom: 20,
-        }),
-    });
-
-    map.once('rendercomplete', () => {
-        mapLoadedCallback(map);
-    });
-
-    return map;
-}
-
 
 export function createMapData(journeyStops) {
     const coordinates = extractCoordinates(journeyStops);

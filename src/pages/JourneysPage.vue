@@ -68,8 +68,6 @@ export default {
                 zoom: 20,
             },
 
-            currentLayer: null
-
         }
     },
 
@@ -111,9 +109,8 @@ export default {
 
                 const journeyData = await journeyServices.getSingleJourney(this.$route.params.journeyId);
                 const { coordinates, vectorLayer } = createMapData(journeyData);
-                this.currentLayer = vectorLayer;
+                this.layers.push(vectorLayer)
                 this.specificJourney = journeyData;
-                this.layers.push(this.currentLayer)
                 this.viewOptions.center = coordinates[0]
 
             } catch (error) {
@@ -131,7 +128,7 @@ export default {
         },
 
 
-        async mapLoaded(map) {
+        mapLoaded(map) {
             this.map = map;
             map.on('click', (event) => {
                 this.handleMapClick(event.coordinate);
@@ -150,7 +147,6 @@ export default {
 
                 clickedFeature.set('selected', !selected);
 
-
                 const style = new Style({
                     image: new Circle({
                         radius: 5,
@@ -168,9 +164,12 @@ export default {
 
                 clickedFeature.setStyle(style);
 
-                this.handlePointClick(stop)
+                if (selected) {
+                    this.stopInformation = null; 
+                } else {
+                    this.handlePointClick(stop); 
+                }
             }
-
         },
 
         scrollToTop() {
@@ -186,7 +185,9 @@ export default {
                 return
             }
 
-            this.map.removeLayer(this.currentLayer)
+            if (this.layers.length > 1) {
+                this.layers.pop()
+            }
             this.map.dispose();
             this.map = null;
         },
