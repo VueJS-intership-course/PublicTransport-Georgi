@@ -5,7 +5,7 @@
             <li v-for="(item, key) in itemsOnCurrentPage" :key="key">
                 <h2>{{ item.journey }}</h2>
 
-                <router-link :to="{name:'single-journey', params:{journeyId:item.journey}}">
+                <router-link :to="{name:'Journey-Page', params:{journeyId:item.journey}}">
                     <button>Choose Journey</button>
                 </router-link>
             </li>

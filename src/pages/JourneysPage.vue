@@ -151,11 +151,11 @@ export default {
                     image: new Circle({
                         radius: 5,
                         fill: new Fill({
-                            color: selected ? 'yellow' :
+                            color: !selected ? 'yellow' :
                                 stop.TimingPointWheelChairAccessible === 'ACCESSIBLE' ? this.pointStyles.ACCESSIBLE.fill : this.pointStyles.NON_ACCESSIBLE.fill,
                         }),
                         stroke: new Stroke({
-                            color: selected ? 'yellow' :
+                            color: !selected ? 'yellow' :
                                 stop.TimingPointWheelChairAccessible === 'ACCESSIBLE' ? this.pointStyles.ACCESSIBLE.stroke : this.pointStyles.NON_ACCESSIBLE.stroke,
                             width: 2,
                         }),
