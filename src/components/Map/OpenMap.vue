@@ -50,7 +50,7 @@ export default {
             });
 
 
-            map.once('rendercomplete', () => {
+            this.mapInstance.once('rendercomplete', () => {
                 this.$emit('map-ready', this.mapInstance);
             });
         },
