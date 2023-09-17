@@ -22,7 +22,6 @@ export default {
     data() {
         return {
             mapInstance: null,
-            isRendered:true
         }
     },
 
@@ -42,7 +41,7 @@ export default {
         },
 
         createMap() {
-            const map = new Map({
+            this.mapInstance =  map = new Map({
                 target: this.mapId,
                 layers: [
                     ...this.layers,
@@ -50,10 +49,9 @@ export default {
                 view: new View(this.viewOptions),
             });
 
-            this.mapInstance = map;
 
             map.once('rendercomplete', () => {
-                this.$emit('map-ready', map, this.isRendered);
+                this.$emit('map-ready', this.mapInstance);
             });
         },
 
