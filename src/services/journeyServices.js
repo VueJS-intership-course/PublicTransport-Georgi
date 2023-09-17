@@ -27,19 +27,14 @@ export default {
     async getTenStops() {
         try {
             const res = await requester.get('request/journey');
-            let count = 0;
-            let data = [];
-
-            for (const key in res.data) {
-                if (count >= 2) {
-                    break;
-                }
-
-                const single = await this.getSingleJourney(key);
-                data.push(single)
-                count++;
-            }
-
+            const keys = Object.keys(res.data).slice(0, 3);
+    
+            const promises = keys.map(async (key) => {
+                return this.getSingleJourney(key);
+            });
+    
+            const data = await Promise.all(promises);
+    
             return data;
         } catch (error) {
             throw error;
