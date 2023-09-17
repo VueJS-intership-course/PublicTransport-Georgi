@@ -31,7 +31,7 @@ export default {
             let data = [];
 
             for (const key in res.data) {
-                if (count >= 5) {
+                if (count >= 2) {
                     break;
                 }
 
