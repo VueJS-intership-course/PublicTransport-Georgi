@@ -15,13 +15,31 @@ export default {
     watch: {
         'specificJourney': {
             handler: 'createMap',
-            immediate: true
+            immediate: true,
+        },
+    },
+
+    data() {
+        return {
+            mapInstance: null,
+            isRendered:true
         }
     },
 
     props: ['specificJourney', 'layers', 'mapId', 'viewOptions'],
 
     methods: {
+        clearMap() {
+            if (this.mapInstance) {
+                const layersToRemove = this.mapInstance.getLayers().getArray().filter(layer => {
+                    return layer.get('name') === 'PointLayer';
+                });
+
+                layersToRemove.forEach(layer => {
+                    this.mapInstance.removeLayer(layer);
+                });
+            }
+        },
 
         createMap() {
             const map = new Map({
@@ -32,11 +50,11 @@ export default {
                 view: new View(this.viewOptions),
             });
 
+            this.mapInstance = map;
 
             map.once('rendercomplete', () => {
-                this.$emit('map-ready', map)
+                this.$emit('map-ready', map, this.isRendered);
             });
-
         },
 
     },

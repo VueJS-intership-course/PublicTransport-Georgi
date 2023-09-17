@@ -110,6 +110,7 @@ export default {
                 const journeyData = await journeyServices.getSingleJourney(this.$route.params.journeyId);
                 const { coordinates, vectorLayer } = createMapData(journeyData);
                 this.layers.push(vectorLayer)
+                console.log("VectorLayers", vectorLayer);
                 this.specificJourney = journeyData;
                 this.viewOptions.center = coordinates[0]
 
