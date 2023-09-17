@@ -41,7 +41,7 @@ export default {
         },
 
         createMap() {
-            this.mapInstance =  map = new Map({
+            this.mapInstance = new Map({
                 target: this.mapId,
                 layers: [
                     ...this.layers,
